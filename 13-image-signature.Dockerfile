@@ -1,0 +1,1 @@
+FROM public.ecr.aws/q3b5f1u4/test-docker-action@sha256:052f0b46f0f164acecd7a8a2ec8dd64f64ccbf1e7f7fc258fdc3719546f79953
