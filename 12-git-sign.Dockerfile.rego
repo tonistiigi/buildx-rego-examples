@@ -25,10 +25,28 @@ allow if {
     version.tag == input.git.tagName
     version.annotated == input.git.isAnnotatedTag
     version.sha == input.git.checksum
-    print("signed by", input.git.tag.pgpSignature.keyID)
-    verify_git_signature("tonistiigi.asc")
+    print("tag signed by", input.git.tag.pgpSignature.keyID)
+    verify_git_signature(input.git.tag, "tonistiigi.asc")
+    verify_git_signature(input.git.commit, "github-web-flow.gpg")
+
+#     verify_git_signature_any(input.git, "tonistiigi.asc")
+#     verify_git_signature_any(input.git, "github-web-flow.gpg")
 }
 
 decision := {
     "allow": allow,
+}
+
+# verify_git_signature_any(x, k) := true if {
+#     verify_git_signature(x, k)
+# }
+
+verify_git_signature_any(git, k) := true if {
+    git.commit != null
+    verify_git_signature(git.commit, k)
+}
+
+verify_git_signature_any(git, k) := true if {
+    git.tag != null
+    verify_git_signature(git.tag, k)
 }
