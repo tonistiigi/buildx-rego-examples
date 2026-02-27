@@ -1,0 +1,1 @@
+FROM tonistiigi/binfmt:qemu-v10.2.1-65
